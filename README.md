@@ -21,13 +21,13 @@ To access the form page:
 - http://localhost:8080/mailinglist/html/index.html
 
 To test the REST controller listing method: 
-	- http://localhost:8080/mailinglist/person
-	- http://localhost:8080/mailinglist/person?name={a last name}
-	- http://localhost:8080/mailinglist/person?descending=true|false (defaults to ascending)
+- http://localhost:8080/mailinglist/person
+- http://localhost:8080/mailinglist/person?name={a last name}
+- http://localhost:8080/mailinglist/person?descending=true|false (defaults to ascending)
 	
 I used jQuery and some CSS in the Mailing List Form.
-	- Requirements specified 
-	- "When the user submits this data, a confirmation page should be displayed which tells the user the data was received by the system."
-	However, I did not take this statement literally and used AJAX to POST the data and success functions to dynamically update the status.
+
+Note: Requirements specified "When the user submits this data, a confirmation page should be displayed which tells the user the data was received by the system." 
+However, I did not take this statement literally and used AJAX to POST the data and success functions to dynamically update the status.
 	
 	
