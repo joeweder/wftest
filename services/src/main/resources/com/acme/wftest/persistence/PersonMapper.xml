@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acme.wftest.persistence.PersonMapper">
+
+  <resultMap id="personMap" type="com.acme.wftest.domain.Person">
+    <id property="id"	column="id" javaType="java.lang.Long"/>
+    <result property="firstName" 	column="firstName"/>
+    <result property="lastName" 	column="lastName"/>
+    <result property="middleName" column="middleName"/>
+  </resultMap>
+
+  <sql id="selectPerson">
+    SELECT *
+    FROM PERSON
+  </sql>
+
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.acme.wftest.domain.Person" >
+    INSERT INTO PERSON(
+      firstName, lastName, email
+    )
+    VALUES (
+      #{firstName},
+      #{lastName},
+      #{email}
+    );
+  </insert>
+
+  <select id="findById" parameterType="long" resultMap="personMap">
+    <include refid="selectPerson"/>
+    WHERE id=#{id};
+  </select>
+
+  <select id="findByCriteria" parameterType="com.acme.wftest.dao.PersonCriteria" resultMap="personMap">
+    <include refid="selectPerson"/>
+    <where>
+      <if test="lastName != null">
+        lastName = #{lastName}
+      </if>
+    </where>
+    <choose>
+      <when test="descending != null">
+        ORDER BY lastName DESC, firstName ASC
+      </when>
+      <otherwise>
+        ORDER BY lastName ASC, firstName ASC
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="findByLastName" parameterType="String" resultMap="personMap">
+    <include refid="selectPerson"/>
+    WHERE lastName like #{name};
+  </select>
+
+  <update id="update" parameterType="com.acme.wftest.domain.Person">
+    UPDATE PERSON SET
+      firstName=#{firstName},
+      lastName=#{lastName},
+      email=#{email}
+    WHERE id=#{id};
+  </update>
+
+  <delete id="deleteById" parameterType="long">
+    DELETE FROM PERSON WHERE id=#{id};
+  </delete>
+
+</mapper>

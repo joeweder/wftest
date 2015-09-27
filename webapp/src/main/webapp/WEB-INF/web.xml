@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+  <display-name>Mailing List WebApp</display-name>
+
+  <servlet>
+    <servlet-name>mailinglist</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!-- Configure DispatcherServlet to use AnnotationConfigWebApplicationContext
+        instead of the default XmlWebApplicationContext -->
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>
+        org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
+    </init-param>
+    <!-- Again, config locations must consist of one or more comma- or space-delimited
+        and fully-qualified @Configuration classes -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>com.acme.wftest.config.AppConfig</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>mailinglist</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+
+  <context-param>
+    <param-name>spring.profiles.default</param-name>
+    <param-value>developer</param-value>
+  </context-param>
+
+</web-app>

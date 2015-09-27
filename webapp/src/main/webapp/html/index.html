@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>Williams Forrest Mailing List</title>
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/ui-lightness/jquery-ui.css">
+  <style>
+    body {
+      margin: 12px;
+    }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+      function submitForm() {
+        var json = JSON.stringify({"firstName" : $('#firstName').val(), "lastName" : $('#lastName').val(), "email": $('#email').val()});
+        var address = window.location.origin + "/mailinglist/person";
+        $.ajax({type:'POST',
+          url:address,
+          contentType: "application/json; charset=utf-8",
+          dataType: 'json',
+          async: false,
+          data: json,
+          success: function(response) {
+            $('#PersonForm').find('.form_result').text(response);
+            $('input:text').val("");
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            $('#PersonForm').find('.form_result').text(textStatus);
+          }
+        });
+
+        return false;
+      }
+  </script>
+</head>
+<body>
+  <form class="pure-form pure-form-aligned" id="PersonForm" onsubmit="return submitForm();">
+    <fieldset>
+      <legend>Mailing List Entry</legend>
+      <div class="pure-control-group">
+        <label for="firstName">First Name:</label>
+        <input id="firstName" type="text" placeholder="First Name">
+      </div>
+      <div class="pure-control-group">
+        <label for="lastName">Last Name:</label>
+        <input id="lastName" type="text" placeholder="Last Name">
+      </div>
+      <div class="pure-control-group">
+        <label for="lastName">Last Name:</label>
+        <input id="email" type="text" placeholder="username@mail.com">
+      </div>
+      <div class="pure-controls">
+        <button type="submit" class="pure-button pure-button-primary">Submit</button>
+      </div>
+      <div class="pure-controls">
+        <div class="form_result">&nbsp;</div>
+      </div>
+    </fieldset>
+  </form>
+</body>
+</html>
