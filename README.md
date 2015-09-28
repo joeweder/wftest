@@ -13,7 +13,9 @@ The application is divided into 3 modules:
 	- Using Spring Framework. Java Config. 
 	- Using HSQLDB as embedded database for demo.
  
-To build, run 'mvn clean install' in model, services, then webapp.
+To build, run:
+- 'mvn -N install' in the root folder.
+- 'mvn install' in model, services, then webapp.
 
 To run, within the webapp folder run 'mvn jetty:run'
 
@@ -28,6 +30,6 @@ To test the REST controller listing method:
 I used jQuery and some CSS in the Mailing List Form.
 
 Note: Requirements specified "When the user submits this data, a confirmation page should be displayed which tells the user the data was received by the system." 
-However, I did not take this statement literally and used AJAX to POST the data and success functions to dynamically update the status.
+However, I did not take this statement literally and used AJAX to POST the data and success functions to dynamically update a status element on the form.
 	
 	
