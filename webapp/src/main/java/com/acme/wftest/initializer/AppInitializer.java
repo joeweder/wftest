@@ -1,7 +1,6 @@
 package com.acme.wftest.initializer;
 
 import com.acme.wftest.config.AppConfig;
-import com.acme.wftest.config.WebMvcConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -26,9 +25,10 @@ public class AppInitializer implements WebApplicationInitializer
 
   private AnnotationConfigWebApplicationContext getContext(ServletContext servletContext) {
     AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-    context.getEnvironment().addActiveProfile("developer");
+    context.getEnvironment().setDefaultProfiles("developer");
     context.setServletContext(servletContext);
     context.register(AppConfig.class);
+
     return context;
   }
 }
