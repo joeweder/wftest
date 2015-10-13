@@ -13,7 +13,9 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
   <script type="text/javascript">
-      function submitForm() {
+    $(document).ready(function() {
+      // process the form
+      $('#PersonForm').submit(function(event) {
         var json = JSON.stringify({"firstName" : $('#firstName').val(), "lastName" : $('#lastName').val(), "email": $('#email').val()});
         var address = window.location.origin + "/mailinglist/person";
         $.ajax({type:'POST',
@@ -22,8 +24,8 @@
           dataType: 'json',
           async: false,
           data: json,
-          success: function(response) {
-            $('#PersonForm').find('.form_result').text(response);
+          success: function(data, status) {
+            $('#PersonForm').find('.form_result').text(status);
             $('input:text').val("");
           },
           error: function(jqXHR, textStatus, errorThrown){
@@ -31,12 +33,13 @@
           }
         });
 
-        return false;
-      }
+        event.preventDefault();
+      });
+    });
   </script>
 </head>
 <body>
-  <form class="pure-form pure-form-aligned" id="PersonForm" onsubmit="return submitForm();">
+  <form class="pure-form pure-form-aligned" id="PersonForm">
     <fieldset>
       <legend>Mailing List Entry</legend>
       <div class="pure-control-group">
